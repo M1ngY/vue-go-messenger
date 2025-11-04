@@ -289,3 +289,11 @@ The production build will be generated in the `dist/` directory.
 ## License
 
 [MIT License](LICENSE) - See LICENSE file for details
+
+## Application Preview
+
+<img width="1831" height="1097" alt="image" src="https://github.com/user-attachments/assets/39f1584f-f0f4-43de-8025-27a9546c19e2" />
+
+<img width="1815" height="1085" alt="image" src="https://github.com/user-attachments/assets/4090ca8c-aaa6-43fc-8d4e-588916783db7" />
+
+
