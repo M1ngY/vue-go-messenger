@@ -1,8 +1,14 @@
 # EchoChat Frontend
 
-A real-time chat application frontend built with Vue 3, providing a WeChat-like user experience with instant messaging, contact management, and audio/video calling capabilities.
+A modern, real-time chat application frontend built with Vue 3, providing a WeChat-like user experience with instant messaging, contact management, and audio/video calling capabilities.
 
-## ✨ Features
+## Project Status
+
+- **Version**: 0.1.0
+- **Status**: Active Development
+- **Backend API**: Required (see Backend Integration section below)
+
+## Features
 
 ### Core Features
 - **Real-time Messaging**: One-on-one and group chat support with WebSocket integration
@@ -19,7 +25,7 @@ A real-time chat application frontend built with Vue 3, providing a WeChat-like 
 - Offline message handling
 - SSL encryption support for secure communication
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework**: Vue 3 (Composition API)
 - **UI Library**: Element Plus
@@ -30,10 +36,10 @@ A real-time chat application frontend built with Vue 3, providing a WeChat-like 
 - **Build Tool**: Vue CLI 5
 - **Package Manager**: Yarn
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-chat-server/
+.
 ├── src/
 │   ├── assets/              # Static resources
 │   │   ├── css/             # Global styles
@@ -53,7 +59,7 @@ chat-server/
 │   ├── router/              # Vue Router configuration
 │   │   └── index.js
 │   ├── store/               # Vuex store
-│   │   └── index.js
+│   │   └── index.js         # API configuration here
 │   ├── views/               # Page components
 │   │   ├── access/          # Authentication pages
 │   │   │   ├── Login.vue
@@ -80,7 +86,7 @@ chat-server/
 └── yarn.lock                # Dependency lock file
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -92,7 +98,8 @@ chat-server/
 
 1. **Clone the repository**
    ```bash
-   cd web/chat-server
+   git clone <your-repo-url>
+   cd kama-chat-frontend
    ```
 
 2. **Install dependencies**
@@ -117,6 +124,20 @@ chat-server/
 
 ### Configuration
 
+#### API Configuration
+
+Configure the backend API endpoints in `src/store/index.js`:
+
+```javascript
+state: {
+  backendUrl: 'https://your-backend-api.com:8000',
+  wsUrl: 'wss://your-backend-api.com:8000',
+  // ... other state
+}
+```
+
+**Note**: Update these URLs to match your backend server address.
+
 #### WebRTC Configuration (Audio/Video Calling)
 
 For audio/video calling to work, you need to configure the TURN server in `src/views/chat/contact/ContactChat.vue`:
@@ -137,10 +158,6 @@ const ICE_CFG = {
 // const ICE_CFG = {}
 ```
 
-#### API Configuration
-
-Update the backend API base URL in your API service files (typically in `src/store/index.js` or API utility files).
-
 #### SSL Certificate Configuration
 
 For HTTPS development, configure SSL certificates in `vue.config.js`:
@@ -151,13 +168,41 @@ https: {
   cert: fs.readFileSync(path.join(__dirname, 'src/assets/cert/your-cert.pem')),
   key: fs.readFileSync(path.join(__dirname, 'src/assets/cert/your-key.pem')),
   
-  // Production server
+  // Production server (uncomment for production)
   // cert: fs.readFileSync('/etc/ssl/certs/server.crt'),
   // key: fs.readFileSync('/etc/ssl/private/server.key'),
 }
 ```
 
-## 📦 Build
+## Backend Integration
+
+This frontend requires a compatible backend API. The backend should provide:
+
+- **RESTful API endpoints** for:
+  - Authentication (login, register, SMS verification)
+  - User management (profile, contacts, groups)
+  - Message operations (send, receive, history)
+  - Session management
+  - Group operations (create, join, leave, manage)
+  
+- **WebSocket endpoint** for real-time messaging
+  - WebSocket URL should be configured in `src/store/index.js`
+  - Supports message push, notifications, and real-time updates
+
+- **CORS configuration** to allow requests from the frontend domain
+
+- **SSL/TLS support** for secure connections
+
+### API Endpoint Configuration
+
+Update the following in `src/store/index.js`:
+
+```javascript
+backendUrl: 'https://your-backend-api.com:8000',  // REST API base URL
+wsUrl: 'wss://your-backend-api.com:8000',         // WebSocket URL
+```
+
+## Build
 
 ### Production Build
 
@@ -188,6 +233,7 @@ The production build will be generated in the `dist/` directory.
    - Ensure HTTPS is enabled
    - Configure SSL certificates
    - Set up proper CORS headers if needed
+   - Configure reverse proxy for API requests if needed
 
 ## 🧪 Scripts
 
@@ -210,32 +256,36 @@ The production build will be generated in the `dist/` directory.
 ### State Management
 - Use Vuex for global state management
 - Keep local state in components when possible
+- API configuration is stored in `src/store/index.js`
 
 ### Routing
 - Define routes in `src/router/index.js`
 - Use route guards for authentication
 
-## 🔐 Security Considerations
+## Security Considerations
 
 - All API communications should use HTTPS
-- WebSocket connections are encrypted
+- WebSocket connections are encrypted (WSS)
 - SSL certificates required for production
 - Implement proper authentication and authorization
+- Store sensitive configuration in environment variables (consider migration)
 
-## 📝 Notes
+## Notes
 
-- The application requires a running backend API server
+- **This is a frontend-only repository**. A separate backend API server is required for full functionality.
+- The backend API should provide WebSocket endpoints for real-time messaging
 - WebRTC features require proper TURN server configuration for NAT traversal
 - Ensure backend CORS is configured to allow frontend origin
-- For production, update API endpoints and WebRTC configurations
+- For production, update API endpoints and WebRTC configurations in the respective files
+- Consider using environment variables for API configuration in future versions
 
-## 🤝 Contributing
+## Contributing
 
 1. Follow the existing code style
 2. Test your changes thoroughly
 3. Update documentation as needed
+4. Ensure backend API compatibility
 
-## 📄 License
+## License
 
-See the main project LICENSE file for details.
-
+[MIT License](LICENSE) - See LICENSE file for details
