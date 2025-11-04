@@ -14,7 +14,7 @@
               <el-input
                 v-model="contactSearch"
                 class="contact-search-input"
-                placeholder="搜索会话"
+                placeholder="Search sessions"
                 size="small"
                 suffix-icon="Search"
               />
@@ -29,7 +29,7 @@
                 >
                   <el-sub-menu index="1">
                     <template #title>
-                      <span class="sessionlist-title">用户</span>
+                      <span class="sessionlist-title">Users</span>
                     </template>
                   </el-sub-menu>
                   <el-menu-item
@@ -49,7 +49,7 @@
                 >
                   <el-sub-menu index="1">
                     <template #title>
-                      <span class="sessionlist-title">群聊</span>
+                      <span class="sessionlist-title">Groups</span>
                     </template>
                   </el-sub-menu>
                   <el-menu-item
@@ -86,7 +86,7 @@
                     </button>
                   </div>
                   <div class="userinfo-modal-header-title">
-                    <h3>个人主页</h3>
+                    <h3>Profile</h3>
                   </div>
                 </template>
                 <template v-slot:body>
@@ -99,7 +99,7 @@
                     <el-descriptions-item
                       :rowspan="2"
                       :width="120"
-                      label="头像"
+                      label="Avatar"
                       align="center"
                     >
                       <el-image
@@ -110,26 +110,26 @@
                     <el-descriptions-item label="Id" :width="140">{{
                       contactInfo.contact_id
                     }}</el-descriptions-item>
-                    <el-descriptions-item label="性别">{{
-                      contactInfo.contact_gender == 0 ? "男" : "女"
+                    <el-descriptions-item label="Gender">{{
+                      contactInfo.contact_gender == 0 ? "Male" : "Female"
                     }}</el-descriptions-item>
-                    <el-descriptions-item label="电话号码">{{
+                    <el-descriptions-item label="Phone">{{
                       contactInfo.contact_phone
                     }}</el-descriptions-item>
-                    <el-descriptions-item label="昵称">{{
+                    <el-descriptions-item label="Nickname">{{
                       contactInfo.contact_name
                     }}</el-descriptions-item>
 
-                    <el-descriptions-item label="邮箱" :span="2">
+                    <el-descriptions-item label="Email" :span="2">
                       <div style="height: 30px">
                         {{ contactInfo.contact_email }}
                       </div></el-descriptions-item
                     >
 
-                    <el-descriptions-item label="生日" :span="1" :width="140"
+                    <el-descriptions-item label="Birthday" :span="1" :width="140"
                       >{{ contactInfo.contact_birthday }}
                     </el-descriptions-item>
-                    <el-descriptions-item label="个性签名">
+                    <el-descriptions-item label="Signature">
                       <div style="height: 70px">
                         {{ contactInfo.contact_signature }}
                       </div>
@@ -148,7 +148,7 @@
                     </button>
                   </div>
                   <div class="groupcontactinfo-modal-header-title">
-                    <h3>群聊主页</h3>
+                    <h3>Group Profile</h3>
                   </div>
                 </template>
                 <template v-slot:body>
@@ -161,7 +161,7 @@
                     <el-descriptions-item
                       :rowspan="2"
                       :width="120"
-                      label="头像"
+                      label="Avatar"
                       align="center"
                     >
                       <el-image
@@ -172,23 +172,23 @@
                     <el-descriptions-item label="Id" :width="140">{{
                       contactInfo.contact_id
                     }}</el-descriptions-item>
-                    <el-descriptions-item label="群人数">{{
+                    <el-descriptions-item label="Members">{{
                       contactInfo.contact_member_cnt
                     }}</el-descriptions-item>
-                    <el-descriptions-item label="群主id">{{
+                    <el-descriptions-item label="Owner ID">{{
                       contactInfo.contact_owner_id
                     }}</el-descriptions-item>
-                    <el-descriptions-item label="入群方式" :width="140"
+                    <el-descriptions-item label="Join Mode" :width="140"
                       >{{
                         contactInfo.contact_add_mode == 0
-                          ? "直接加入"
-                          : "群主审核"
+                          ? "Direct Join"
+                          : "Owner Approval"
                       }}
                     </el-descriptions-item>
-                    <el-descriptions-item label="群名称" :span="3">{{
+                    <el-descriptions-item label="Group Name" :span="3">{{
                       contactInfo.contact_name
                     }}</el-descriptions-item>
-                    <el-descriptions-item label="群公告" :span="3">
+                    <el-descriptions-item label="Group Notice" :span="3">
                       <div style="height: 70px">
                         {{ contactInfo.contact_notice }}
                       </div>
@@ -203,54 +203,54 @@
                 <template #dropdown>
                   <el-dropdown-menu v-if="contactInfo.contact_id[0] === 'U'">
                     <el-dropdown-item @click="showUserContactInfoModal">
-                      个人信息
+                      Profile
                     </el-dropdown-item>
 
                     <el-dropdown-item @click="preToDeleteSession"
-                      >删除该会话</el-dropdown-item
+                      >Delete Session</el-dropdown-item
                     >
                     <el-dropdown-item @click="preToDeleteContact"
-                      >删除联系人</el-dropdown-item
+                      >Delete Contact</el-dropdown-item
                     >
                     <el-dropdown-item @click="preToBlackContact"
-                      >拉黑联系人</el-dropdown-item
+                      >Block Contact</el-dropdown-item
                     >
                   </el-dropdown-menu>
                   <el-dropdown-menu
                     v-else-if="contactInfo.contact_id[0] === 'G'"
                   >
                     <el-dropdown-item @click="showGroupContactInfoModal"
-                      >群聊信息</el-dropdown-item
+                      >Group Info</el-dropdown-item
                     >
                     <el-dropdown-item
                       v-if="contactInfo.contact_owner_id == userInfo.uuid"
                       @click="showUpdateGroupInfoModal"
                     >
-                      修改群聊信息
+                      Edit Group Info
                     </el-dropdown-item>
                     <el-dropdown-item
                       v-if="contactInfo.contact_owner_id == userInfo.uuid"
                       @click="showRemoveGroupMemberModal"
                     >
-                      移除群组人员
+                      Remove Members
                     </el-dropdown-item>
                     <el-dropdown-item
                       v-if="contactInfo.contact_owner_id == userInfo.uuid"
                       @click="showAddGroupModal"
-                      >加群申请</el-dropdown-item
+                      >Join Requests</el-dropdown-item
                     >
                     <el-dropdown-item @click="preToDeleteSession"
-                      >删除该会话</el-dropdown-item
+                      >Delete Session</el-dropdown-item
                     >
                     <el-dropdown-item
                       v-if="contactInfo.contact_owner_id == userInfo.uuid"
                       @click="handleDismissGroup"
-                      >解散群聊</el-dropdown-item
+                      >Dismiss Group</el-dropdown-item
                     >
                     <el-dropdown-item
                       v-if="contactInfo.contact_owner_id != userInfo.uuid"
                       @click="handleLeaveGroup"
-                      >退出群聊</el-dropdown-item
+                      >Leave Group</el-dropdown-item
                     >
                   </el-dropdown-menu>
                 </template>
@@ -266,7 +266,7 @@
                     </button>
                   </div>
                   <div class="updategroupinfo-modal-header-title">
-                    <h3>修改群聊信息</h3>
+                    <h3>Edit Group Info</h3>
                   </div>
                 </template>
                 <template v-slot:body>
@@ -289,38 +289,38 @@
                       >
                         <el-form-item
                           prop="name"
-                          label="群名称"
+                          label="Group Name"
                           :rules="[
                             {
                               min: 3,
                               max: 10,
-                              message: '群名称长度在 3 到 10 个字符',
+                              message: 'Group name must be between 3 and 10 characters',
                               trigger: 'blur',
                             },
                           ]"
                         >
                           <el-input
                             v-model="updateGroupInfo.name"
-                            placeholder="选填"
+                            placeholder="Optional"
                           />
                         </el-form-item>
-                        <el-form-item prop="add_mode" label="入群方式">
+                        <el-form-item prop="add_mode" label="Join Mode">
                           <el-radio-group v-model="updateGroupInfo.add_mode">
-                            <el-radio :value="0">直接加入</el-radio>
-                            <el-radio :value="1">群主审核</el-radio>
+                            <el-radio :value="0">Direct Join</el-radio>
+                            <el-radio :value="1">Owner Approval</el-radio>
                           </el-radio-group>
                         </el-form-item>
-                        <el-form-item prop="notice" label="群公告">
+                        <el-form-item prop="notice" label="Group Notice">
                           <el-input
                             v-model="updateGroupInfo.notice"
                             type="textarea"
                             show-word-limit
                             maxlength="500"
                             :autosize="{ minRows: 3, maxRows: 3 }"
-                            placeholder="选填"
+                            placeholder="Optional"
                           />
                         </el-form-item>
-                        <el-form-item prop="avatar" label="群头像">
+                        <el-form-item prop="avatar" label="Group Avatar">
                           <el-upload
                             v-model:file-list="avatarList"
                             ref="uploadAvatarRef"
@@ -332,7 +332,7 @@
                             <template #trigger>
                               <el-button
                                 style="background-color: rgb(252, 210.9, 210.9)"
-                                >上传图片</el-button
+                                >Upload Image</el-button
                               >
                             </template>
                           </el-upload>
@@ -347,7 +347,7 @@
                       style="background-color: rgb(252, 210.9, 210.9)"
                       @click="closeUpdateGroupInfoModal"
                     >
-                      完成
+                      Done
                     </el-button>
                   </div>
                 </template>
@@ -363,7 +363,7 @@
                     </button>
                   </div>
                   <div class="removegroupmember-modal-header-title">
-                    <h3>移除群组人员</h3>
+                    <h3>Remove Group Members</h3>
                   </div>
                 </template>
                 <template v-slot:body>
@@ -378,7 +378,7 @@
                       justify-content: left;
                       margin-bottom: 5px;
                     "
-                    >群组成员：</span
+                    >Group Members:</span
                   >
                   <el-scrollbar
                     max-height="400px"
@@ -426,7 +426,7 @@
                     <el-button
                       class="removegroupmembers-button"
                       @click="handleRemoveGroupMembers"
-                      >移除所选人员</el-button
+                      >Remove Selected</el-button
                     >
                   </div>
                 </template>
@@ -440,7 +440,7 @@
                       </button>
                     </div>
                     <div class="modal-header-title">
-                      <h3>加群申请</h3>
+                      <h3>Join Requests</h3>
                     </div>
                   </div>
                 </template>
@@ -482,17 +482,17 @@
                             </el-tooltip>
                           </div>
                           <el-dropdown placement="right" trigger="click">
-                            <el-button class="action-btn"> 去处理 </el-button>
+                            <el-button class="action-btn"> Process </el-button>
                             <template #dropdown>
                               <el-dropdown-menu>
                                 <el-dropdown-item
                                   @click="handleAgree(addGroup.contact_id)"
-                                  >同意</el-dropdown-item
+                                  >Approve</el-dropdown-item
                                 >
                                 <el-dropdown-item
                                   @click="handleReject(addGroup.contact_id)"
                                 >
-                                  拒绝
+                                  Reject
                                 </el-dropdown-item>
                               </el-dropdown-menu>
                             </template>
@@ -603,7 +603,7 @@
                             size="small"
                             @click="downloadFile(messageItem.file_name)"
                           >
-                            下载
+                            Download
                           </el-button>
                         </div>
                       </div>
@@ -697,7 +697,7 @@
                             </div>
 
                             <div class="right-message-file-download">
-                              已发送
+                              Sent
                             </div>
                           </div>
                         </div>
@@ -711,7 +711,7 @@
               <div class="tool-bar-left">
                 <el-tooltip
                   effect="customized"
-                  content="表情包"
+                  content="Emoji"
                   placement="top"
                   hide-after="0"
                   enterable="false"
@@ -719,7 +719,7 @@
                   <button
                     class="image-button"
                     @click="
-                      downloadFile(backendUrl + '/static/avatars', '头像.jpg')
+                      downloadFile(backendUrl + '/static/avatars', 'avatar.jpg')
                     "
                   >
                     <svg
@@ -743,7 +743,7 @@
 
                 <el-tooltip
                   effect="customized"
-                  content="文件上传"
+                  content="File Upload"
                   placement="top"
                   hide-after="0"
                   enterable="false"
@@ -790,7 +790,7 @@
 
                 <el-tooltip
                   effect="customized"
-                  content="聊天记录"
+                  content="Chat History"
                   placement="top"
                   hide-after="0"
                   enterable="false"
@@ -823,7 +823,7 @@
                 </el-tooltip>
                 <el-tooltip
                   effect="customized"
-                  content="全文复制"
+                  content="Copy All"
                   placement="top"
                   hide-after="0"
                   enterable="false"
@@ -851,7 +851,7 @@
               <div class="tool-bar-right">
                 <el-tooltip
                   effect="customized"
-                  content="音视频通话"
+                  content="Audio/Video Call"
                   placement="top"
                   hide-after="0"
                   enterable="false"
@@ -881,7 +881,7 @@
                 >
                   <div class="video-modal-content">
                     <div class="video-modal-header">
-                      <h2>聊天室</h2>
+                      <h2>Chat Room</h2>
                     </div>
                     <div class="video-modal-body">
                       <video autoplay playsinline class="local-video"></video>
@@ -891,27 +891,27 @@
                       <el-button
                         class="video-modal-footer-btn"
                         @click="startCall(true)"
-                        >发起通话</el-button
+                        >Initiate Call</el-button
                       >
                       <el-button
                         class="video-modal-footer-btn"
                         @click="startCall(false)"
-                        >接收通话</el-button
+                        >Receive Call</el-button
                       >
                       <el-button
                         class="video-modal-footer-btn"
                         @click="rejectCall"
-                        >拒绝通话</el-button
+                        >Reject Call</el-button
                       >
                       <el-button
                         class="video-modal-footer-btn"
                         @click="sendEndCall"
-                        >挂断通话</el-button
+                        >Hang Up</el-button
                       >
                       <el-button
                         class="video-modal-footer-btn"
                         @click="closeAVContainerModal"
-                        >退出聊天室</el-button
+                        >Exit Chat Room</el-button
                       >
                     </div>
                   </div>
@@ -927,11 +927,11 @@
                 show-word-limit
                 maxlength="500"
                 :autosize="{ minRows: 7.9, maxRows: 7 }"
-                placeholder="请输入内容"
+                placeholder="Please enter content"
               />
             </div>
             <div class="chat-send">
-              <el-button class="send-btn" @click="sendMessage">发送</el-button>
+              <el-button class="send-btn" @click="sendMessage">Send</el-button>
             </div>
           </el-footer>
         </el-container>
@@ -1047,7 +1047,7 @@ export default {
       ableToReceiveOrRejectCall: false,
       ableToStartCall: true,
     });
-    //这是/chat/:id 的id改变时会调用
+    // This is called when the id of /chat/:id changes
     onBeforeRouteUpdate(async (to, from, next) => {
       await getChatContactInfo(to.params.id);
       await getSessionId(router.currentRoute.value.params.id);
@@ -1061,46 +1061,46 @@ export default {
         const message = JSON.parse(jsonMessage.data);
         if (message.type != 3) {
           if (
-            // 群聊过来的消息，且当前会话是该群聊
+            // Message from group chat, and current session is this group
             (message.receive_id[0] == "G" &&
               message.receive_id == data.contactInfo.contact_id) ||
-            // 其他用户过来的消息，且当前会话是该用户
+            // Message from other user, and current session is this user
             (message.receive_id[0] == "U" &&
               message.receive_id == data.userInfo.uuid) ||
-            // 自己发送的消息
+            // Message sent by self
             message.send_id == data.userInfo.uuid
           ) {
-            console.log("收到消息：", message);
+            console.log("Message received:", message);
             if (data.messageList == null) {
               data.messageList = [];
             }
             data.messageList.push(message);
             scrollToBottom();
           }
-          // 其他接受的消息都不显示在messageList中，而是通过切换页面或刷新页面getMessageList来获取
+          // Other received messages are not displayed in messageList, but are obtained by switching pages or refreshing getMessageList
         } else {
-          var messageAVdata = JSON.parse(message.av_data); // 后端message的该字段命名为av_data
+          var messageAVdata = JSON.parse(message.av_data); // Backend message field is named av_data
           if (messageAVdata.messageId === "CURRENT_PEERS") {
             console.log(
-              "获取CURRENT_PEERS当前在线用户列表，curContactList:",
+              "Get CURRENT_PEERS current online user list, curContactList:",
               messageAVdata.messageData.curContactList
             );
             data.curContactList = messageAVdata.messageData.curContactList;
           } else if (messageAVdata.messageId === "PEER_JOIN") {
             console.log(
-              "接受到PEER_JOIN消息，contactId:",
+              "Received PEER_JOIN message, contactId:",
               messageAVdata.messagecontactId
             );
             data.curContactList.push(messageAVdata.messagecontactId);
           } else if (messageAVdata.messageId === "PEER_LEAVE") {
-            console.log("接收到PEER_LEAVE消息：", data.userInfo.uuid);
+            console.log("Received PEER_LEAVE message:", data.userInfo.uuid);
             receiveEndCall();
           } else if (messageAVdata.messageId === "PROXY") {
-            console.log("接收到PROXY消息：", message);
+            console.log("Received PROXY message:", message);
             if (messageAVdata.type === "start_call") {
               ElNotification({
-                title: "消息提示",
-                message: `收到一条来自${message.send_name}的通话请求，请及时前往查看`,
+                title: "Message",
+                message: `Received a call request from ${message.send_name}, please check`,
                 type: "warning",
               });
               data.ableToReceiveOrRejectCall = true;
@@ -1115,12 +1115,12 @@ export default {
               } else if (messageAVdata.messageData.sdp.type === "answer") {
                 handleAnswerSdp(messageAVdata.messageData.sdp);
               } else {
-                console.log("不支持的sdp类型");
+                console.log("Unsupported sdp type");
               }
             } else if (messageAVdata.type === "candidate") {
               handleCandidate(messageAVdata.messageData.candidate);
             } else {
-              console.log("不支持的proxy类型");
+              console.log("Unsupported proxy type");
             }
           }
           console.log("收到消息：", message);
@@ -1134,7 +1134,7 @@ export default {
       scrollToBottom();
       next();
     });
-    // 这是刚渲染/chat/:id页面的时候会调用
+    // This is called when the /chat/:id page is first rendered
     onMounted(async () => {
       try {
         /*  */
@@ -1152,46 +1152,46 @@ export default {
           const message = JSON.parse(jsonMessage.data);
           if (message.type != 3) {
             if (
-              // 群聊过来的消息，且当前会话是该群聊
+              // Message from group chat, and current session is this group
               (message.receive_id[0] == "G" &&
                 message.receive_id == data.contactInfo.contact_id) ||
-              // 其他用户过来的消息，且当前会话是该用户
+              // Message from other user, and current session is this user
               (message.receive_id[0] == "U" &&
                 message.receive_id == data.userInfo.uuid) ||
-              // 自己发送的消息
+              // Message sent by self
               message.send_id == data.userInfo.uuid
             ) {
-              console.log("收到消息：", message);
+              console.log("Message received:", message);
               if (data.messageList == null) {
                 data.messageList = [];
               }
               data.messageList.push(message);
               scrollToBottom();
             }
-            // 其他接受的消息都不显示在messageList中，而是通过切换页面或刷新页面getMessageList来获取
+            // Other received messages are not displayed in messageList, but are obtained by switching pages or refreshing getMessageList
           } else {
-            var messageAVdata = JSON.parse(message.av_data); // 后端message的该字段命名为av_data
+            var messageAVdata = JSON.parse(message.av_data); // Backend message field is named av_data
             if (messageAVdata.messageId === "CURRENT_PEERS") {
               console.log(
-                "获取CURRENT_PEERS当前在线用户列表，curContactList:",
+                "Get CURRENT_PEERS current online user list, curContactList:",
                 messageAVdata.messageData.curContactList
               );
               data.curContactList = messageAVdata.messageData.curContactList;
             } else if (messageAVdata.messageId === "PEER_JOIN") {
               console.log(
-                "接受到PEER_JOIN消息，contactId:",
+                "Received PEER_JOIN message, contactId:",
                 messageAVdata.messagecontactId
               );
               data.curContactList.push(messageAVdata.messagecontactId);
             } else if (messageAVdata.messageId === "PEER_LEAVE") {
-              console.log("接收到PEER_LEAVE消息：", data.userInfo.uuid);
+              console.log("Received PEER_LEAVE message:", data.userInfo.uuid);
               receiveEndCall();
             } else if (messageAVdata.messageId === "PROXY") {
-              console.log("接收到PROXY消息：", message);
+              console.log("Received PROXY message:", message);
               if (messageAVdata.type === "start_call") {
                 ElNotification({
-                  title: "消息提示",
-                  message: `收到一条来自${message.send_name}的通话请求，请及时前往查看`,
+                  title: "Message",
+                  message: `Received a call request from ${message.send_name}, please check`,
                   type: "warning",
                 });
                 data.ableToReceiveOrRejectCall = true;
@@ -1199,7 +1199,7 @@ export default {
               } else if (messageAVdata.type === "reject_call") {
                 endCall();
               } else if (messageAVdata.type === "receive_call") {
-                console.log("接收到receive_call消息", data.userInfo.nickname);
+                console.log("Received receive_call message", data.userInfo.nickname);
                 createOffer();
               } else if (messageAVdata.type === "sdp") {
                 if (messageAVdata.messageData.sdp.type === "offer") {
@@ -1207,15 +1207,15 @@ export default {
                 } else if (messageAVdata.messageData.sdp.type === "answer") {
                   handleAnswerSdp(messageAVdata.messageData.sdp);
                 } else {
-                  console.log("不支持的sdp类型");
+                  console.log("Unsupported sdp type");
                 }
               } else if (messageAVdata.type === "candidate") {
                 handleCandidate(messageAVdata.messageData.candidate);
               } else {
-                console.log("不支持的proxy类型");
+                console.log("Unsupported proxy type");
               }
             }
-            console.log("收到消息：", message);
+            console.log("Message received:", message);
             if (data.messageList == null) {
               data.messageList = [];
             }
@@ -1310,7 +1310,7 @@ export default {
           data.addGroupList = rsp.data.data;
           console.log(rsp.data.data);
           if (data.addGroupList == null) {
-            ElMessage.warning("没有新的加群申请");
+            ElMessage.warning("No new join requests");
             return;
           } else {
             for (let i = 0; i < data.addGroupList.length; i++) {
@@ -1387,22 +1387,22 @@ export default {
     };
     const preToDeleteSession = () => {
       try {
-        ElMessageBox.confirm("确认删除该会话以及其聊天记录？", "Warning", {
-          confirmButtonText: "确认",
-          cancelButtonText: "取消",
+        ElMessageBox.confirm("Confirm to delete this session and its chat history?", "Warning", {
+          confirmButtonText: "Confirm",
+          cancelButtonText: "Cancel",
           type: "warning",
         })
           .then(() => {
             deleteSession();
             ElMessage({
               type: "success",
-              message: "成功删除",
+              message: "Deleted successfully",
             });
           })
           .catch(() => {
             ElMessage({
               type: "info",
-              message: "取消删除",
+              message: "Cancelled",
             });
           });
       } catch (error) {
@@ -1427,22 +1427,22 @@ export default {
     };
     const preToDeleteContact = () => {
       try {
-        ElMessageBox.confirm("确认删除该联系人？", "Warning", {
-          confirmButtonText: "确认",
-          cancelButtonText: "取消",
+        ElMessageBox.confirm("Confirm to delete this contact?", "Warning", {
+          confirmButtonText: "Confirm",
+          cancelButtonText: "Cancel",
           type: "warning",
         })
           .then(() => {
             deleteContact();
             ElMessage({
               type: "success",
-              message: "成功删除",
+              message: "Deleted successfully",
             });
           })
           .catch(() => {
             ElMessage({
               type: "info",
-              message: "取消删除",
+              message: "Cancelled",
             });
           });
       } catch (error) {
@@ -1467,22 +1467,22 @@ export default {
     };
     const preToBlackContact = () => {
       try {
-        ElMessageBox.confirm("确认拉黑该联系人？", "Warning", {
-          confirmButtonText: "确认",
-          cancelButtonText: "取消",
+        ElMessageBox.confirm("Confirm to block this contact?", "Warning", {
+          confirmButtonText: "Confirm",
+          cancelButtonText: "Cancel",
           type: "warning",
         })
           .then(() => {
             blackContact();
             ElMessage({
               type: "success",
-              message: "成功拉黑",
+              message: "Blocked successfully",
             });
           })
           .catch(() => {
             ElMessage({
               type: "info",
-              message: "取消拉黑",
+              message: "Cancelled",
             });
           });
       } catch (error) {
@@ -1725,7 +1725,7 @@ export default {
     };
 
     const handleUploadSuccess = () => {
-      ElMessage.success("文件上传成功");
+      ElMessage.success("File uploaded successfully");
       sendFileMessage(
         store.state.backendUrl + "/static/files/" + data.fileList[0].name
       );
@@ -1733,36 +1733,36 @@ export default {
     };
 
     const handleAvatarUploadSuccess = () => {
-      ElMessage.success("头像上传成功");
+      ElMessage.success("Avatar uploaded successfully");
       data.avatarList = [];
     };
 
     const beforeAvatarUpload = (avatar) => {
-      console.log("上传前avatar====>", avatar);
+      console.log("Before upload avatar====>", avatar);
       console.log(data.avatarList);
       console.log(avatar);
       if (data.avatarList.length > 1) {
-        ElMessage.error("只能上传一张头像");
+        ElMessage.error("Only one avatar can be uploaded");
         return false;
       }
       const isLt50M = avatar.size / 1024 / 1024 < 50;
       if (!isLt50M) {
-        ElMessage.error("上传头像图片大小不能超过 50MB!");
+        ElMessage.error("Avatar image size cannot exceed 50MB!");
         return false;
       }
     };
 
     const beforeFileUpload = (file) => {
-      console.log("上传前file====>", file);
+      console.log("Before upload file====>", file);
       console.log(data.fileList);
       console.log(file);
       if (data.fileList.length > 1) {
-        ElMessage.error("只能上传一张头像");
+        ElMessage.error("Only one avatar can be uploaded");
         return false;
       }
       const isLt50M = file.size / 1024 / 1024 < 50;
       if (!isLt50M) {
-        ElMessage.error("上传头像图片大小不能超过 50MB!");
+        ElMessage.error("Avatar image size cannot exceed 50MB!");
         return false;
       }
     };
@@ -1808,7 +1808,7 @@ export default {
           data.updateGroupInfo.add_mode == -1 &&
           data.avatarList.length == 0
         ) {
-          ElMessage.error("请至少修改一项");
+          ElMessage.error("Please modify at least one item");
           return;
         }
         if (data.avatarList.length > 0) {
@@ -1911,7 +1911,7 @@ export default {
 
     const closeAVContainerModal = () => {
       if (data.localVideo || data.remoteVideo) {
-        ElMessage.warning("请先结束通话");
+        ElMessage.warning("Please end the call first");
         return;
       }
       data.isAVContainerModalVisible = false;
@@ -2093,17 +2093,17 @@ export default {
       console.log(data.localVideo);
       console.log(data.localStream);
       if (data.localVideo) {
-        ElMessage.warning("已经在通话中，请勿重复发起");
+        ElMessage.warning("Already in a call, please do not initiate again");
         return;
       }
       if (isInitiator && !data.ableToStartCall) {
         ElMessage.warning(
-          "对方已经发起通话，请先接收通话或拒绝通话，才能发起下一次通话"
+          "The other party has already initiated a call, please receive or reject the call first before initiating another call"
         );
         return;
       }
       if (!isInitiator && !data.ableToReceiveOrRejectCall) {
-        ElMessage.warning("对方没有发起通话或已在通话中，无法接收通话");
+        ElMessage.warning("The other party has not initiated a call or is already in a call, cannot receive call");
         return;
       }
       createRtcPeerConnection();
@@ -2156,7 +2156,7 @@ export default {
 
     const sendEndCall = () => {
       if (data.localVideo == null && data.remoteVideo == null) {
-        ElMessage.warning("尚未开始通话，无法挂断");
+        ElMessage.warning("Call has not started, cannot hang up");
         return;
       }
       if (data.localVideo) data.localVideo.style.display = "none";
@@ -2200,7 +2200,7 @@ export default {
       data.remoteVideo = null;
       data.ableToReceiveOrRejectCall = false;
       data.ableToStartCall = true;
-      ElMessage.warning("对方拒绝通话");
+      ElMessage.warning("The other party rejected the call");
     };
 
     const receiveEndCall = () => {
@@ -2214,7 +2214,7 @@ export default {
       data.remoteVideo = null;
       data.ableToReceiveOrRejectCall = false;
       data.ableToStartCall = true;
-      ElMessage.warning("对方已挂断");
+      ElMessage.warning("The other party has hung up");
     };
 
     const handleOfferSdp = (val) => {
@@ -2242,7 +2242,7 @@ export default {
 
     const rejectCall = () => {
       if (!data.ableToReceiveOrRejectCall) {
-        ElMessage.warning("对方没有发起通话或已在通话中，无法拒绝通话");
+        ElMessage.warning("The other party has not initiated a call or is already in a call, cannot reject call");
         return;
       }
       var rejectCallMessage = {

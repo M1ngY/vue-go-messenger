@@ -6,7 +6,7 @@
         boxShadow: `var(${'--el-box-shadow-dark'})`,
       }"
     >
-      <h2 class="login-item">登录</h2>
+      <h2 class="login-item">Login</h2>
       <el-form
         :model="loginData"
         label-width="70px"
@@ -14,11 +14,11 @@
       >
         <el-form-item
           prop="telephone"
-          label="账号"
+          label="Account"
           :rules="[
             {
               required: true,
-              message: '此项为必填项',
+              message: 'This field is required',
               trigger: 'blur',
             },
           ]"
@@ -27,11 +27,11 @@
         </el-form-item>
         <el-form-item
           prop="password"
-          label="密码"
+          label="Password"
           :rules="[
             {
               required: true,
-              message: '此项为必填项',
+              message: 'This field is required',
               trigger: 'blur',
             },
           ]"
@@ -41,13 +41,13 @@
       </el-form>
       <div class="login-button-container">
         <el-button type="primary" class="login-btn" @click="handleLogin"
-          >登录</el-button
+          >Login</el-button
         >
       </div>
 
       <div class="go-register-button-container">
-        <button class="go-register-btn" @click="handleRegister">注册</button>
-        <button class="go-sms-btn" @click="handleSmsLogin">验证码登录</button>
+        <button class="go-register-btn" @click="handleRegister">Register</button>
+        <button class="go-sms-btn" @click="handleSmsLogin">SMS Login</button>
       </div>
     </div>
   </div>
@@ -73,11 +73,11 @@ export default {
     const handleLogin = async () => {
       try {
         if (!data.loginData.telephone || !data.loginData.password) {
-          ElMessage.error("请填写完整登录信息。");
+          ElMessage.error("Please fill in all login information.");
           return;
         }
         if (!checkTelephoneValid()) {
-          ElMessage.error("请输入有效的手机号码。");
+          ElMessage.error("Please enter a valid phone number.");
           return;
         }
 	console.log(store.state.backendUrl, store.state.wsUrl);
@@ -88,7 +88,7 @@ export default {
         console.log(response);
         if (response.data.code == 200) {
           if (response.data.data.status == 1) {
-            ElMessage.error("该账号已被封禁，请联系管理员。");
+            ElMessage.error("This account has been banned. Please contact the administrator.");
             return;
           }
           try {
@@ -98,22 +98,22 @@ export default {
                 store.state.backendUrl + response.data.data.avatar;
             }
             store.commit("setUserInfo", response.data.data);
-            // 准备创建websocket连接
+            // Prepare to create websocket connection
             const wsUrl =
               store.state.wsUrl + "/wss?client_id=" + response.data.data.uuid;
             console.log(wsUrl);
             store.state.socket = new WebSocket(wsUrl);
             store.state.socket.onopen = () => {
-              console.log("WebSocket连接已打开");
+              console.log("WebSocket connection opened");
             };
             store.state.socket.onmessage = (message) => {
-              console.log("收到消息：", message.data);
+              console.log("Message received:", message.data);
             };
             store.state.socket.onclose = () => {
-              console.log("WebSocket连接已关闭");
+              console.log("WebSocket connection closed");
             };
             store.state.socket.onerror = () => {
-              console.log("WebSocket连接发生错误");
+              console.log("WebSocket connection error");
             };
             router.push("/chat/sessionlist");
           } catch (error) {
@@ -176,8 +176,8 @@ export default {
 
 .login-button-container {
   display: flex;
-  justify-content: center; /* 水平居中 */
-  margin-top: 20px; /* 可选，根据需要调整按钮与输入框之间的间距 */
+  justify-content: center; /* Horizontal center */
+  margin-top: 20px; /* Optional, adjust spacing between button and input fields as needed */
   width: 100%;
 }
 

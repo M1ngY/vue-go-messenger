@@ -43,7 +43,7 @@ export default {
       );
       if (rsp.data.code == 200) {
         router.push("/login");
-        ElMessage.success("账号被封禁，退出登录");
+        ElMessage.success("Account banned, logged out");
       } else {
         ElMessage.error(rsp.data.message);
       }
@@ -59,17 +59,17 @@ export default {
           console.log(wsUrl);
         store.state.socket = new WebSocket(wsUrl);
         store.state.socket.onopen = () => {
-          console.log("WebSocket连接已打开");console.log("连接信令服务器成功");
+          console.log("WebSocket connection opened");console.log("Signaling server connected successfully");
         };
         store.state.socket.onmessage = (message) => {
-          console.log("收到消息：", message.data);
+          console.log("Message received:", message.data);
         };
         store.state.socket.onclose = () => {
-          console.log("WebSocket连接已关闭");
-        console.log("连接信令服务器断开");
+          console.log("WebSocket connection closed");
+        console.log("Signaling server disconnected");
         };
         store.state.socket.onerror = () => {
-          console.log("WebSocket连接发生错误");console.log("连接信令服务器失败，错误信息：", error);
+          console.log("WebSocket connection error");console.log("Signaling server connection failed, error:", error);
         };
         console.log(store.state.socket);
       }
@@ -82,6 +82,6 @@ export default {
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* 推荐使用，以确保布局计算的一致性 */
+  box-sizing: border-box; /* Recommended for consistent layout calculation */
 }
 </style>
