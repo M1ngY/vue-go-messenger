@@ -235,13 +235,13 @@ The production build will be generated in the `dist/` directory.
    - Set up proper CORS headers if needed
    - Configure reverse proxy for API requests if needed
 
-## 🧪 Scripts
+## Scripts
 
 - `yarn serve` - Start development server
 - `yarn build` - Build for production
 - `yarn lint` - Run ESLint
 
-## 🔧 Development Guidelines
+## Development Guidelines
 
 ### Code Style
 - Follow Vue 3 Composition API best practices
